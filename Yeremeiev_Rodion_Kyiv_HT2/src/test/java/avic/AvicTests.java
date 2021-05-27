@@ -78,7 +78,8 @@ public class AvicTests {
         assertEquals(actualProductsCountInCart, "1");
     }
 
-    @Test
+    //Home task Test#1
+    @Test(priority = 5)
     public void checkAmountXiaomiScooterAvailable() {
         driver.findElement(By.xpath("//span[@class='sidebar-item']")).click();
         driver.findElement(By.xpath("//ul[@class='sidebar-list sidebar-list--fl']//a[@href='https://avic.ua/girobordyi-i-giroskuteryi']")).click();
@@ -94,9 +95,9 @@ public class AvicTests {
         Assert.assertEquals(elementList.size(), 3);
     }
 
-
-    @Test
-    public void checkPriceConditioners85Kto100K() {
+    //Home task Test#2
+    @Test(priority = 6)
+    public void checkPriceRangeFilter() {
         WebElement webElement;
         driver.findElement(By.xpath("//div[contains(@class,'top-links flex')]//a[contains(@href,'kondiczionery')]")).click();
 
@@ -114,7 +115,8 @@ public class AvicTests {
         Assert.assertEquals(webElement.getText(), "80101 грн");
     }
 
-    @Test
+    //Home task Test#3
+    @Test(priority = 7)
     public void checkPopUpsAllInOnePcAsus() {
         WebElement webElement;
         Actions actions = new Actions(driver);
@@ -133,8 +135,9 @@ public class AvicTests {
         assertTrue(driver.getCurrentUrl().contains("proizvoditel--asus"));
     }
 
-    @Test
-    public void checkInformWhenAvailable() {
+    //Home task Test#4
+    @Test(priority = 8)
+    public void checkProductIsAvailableAgainEmail() {
         WebElement webElement;
 
         driver.findElement(xpath("//input[@id='input_search']")).sendKeys("toster", ENTER);//вводим в поиск iPhone 11
