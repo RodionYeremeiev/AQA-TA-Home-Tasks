@@ -1,0 +1,44 @@
+1. Sell Button
+
+//a[contains(@data-csa-c-content-id, 'nav_cs_sell')]
+
+***
+
+2. Add to list button
+//span[@id="wishListMainButton"]/span/a
+***
+
+
+3. Drone image
+
+//div/img[contains(@alt,"Ruko U11 GPS")]
+***
+
+4. Add to cart
+//div/descendant::input[@name ='submit.addToCart']
+***
+
+5. Sign In button
+//a[@class='action-button']/span[text()='Sign in']
+***
+
+6.#1 Best Seller
+//span[contains(text(), '#1 Best Seller')]
+***
+
+7. Gift Card
+
+//a[contains(@href, 'Graduation-Cap')]/div[contains(text(), 'Gift Card')]
+***
+
+8. AirPurifier
+//*[@id='dealTitle']/span[contains(text(), 'LEVOIT Air Purifier')]
+***
+
+9. Write Customer review
+//a[@id="a-autoid-37-announce"]
+***
+
+10. Search Bar
+//div/input[@id="twotabsearchtextbox"]
+***
