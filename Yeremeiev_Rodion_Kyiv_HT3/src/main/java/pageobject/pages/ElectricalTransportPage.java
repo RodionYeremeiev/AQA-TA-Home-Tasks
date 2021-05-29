@@ -21,7 +21,7 @@ public class ElectricalTransportPage extends BasePage {
     }
 
     public void clickOnManufacturerXiaomiFilterButton() {
-        driver.findElement(By.xpath("//div[contains(@class,'filter')]//label[@for='fltr-proizvoditel-xiaomi']")).click();
+        driver.findElement(By.xpath(MANUFACTURER_FILTER_XIAOMI_BUTTON)).click();
     }
 
     public int getFilteredXiaomiScootersAmount() {

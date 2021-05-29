@@ -1,9 +1,9 @@
-package peageobject.tests;
+package pagefactory.tests;
 
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
-import static pageobject.pages.BasePage.TIME_OUT_30_SECONDS;
+import static pagefactory.pages.BasePage.TIME_OUT_30_SECONDS;
 
 public class AddToCartTests extends BaseTest {
 
