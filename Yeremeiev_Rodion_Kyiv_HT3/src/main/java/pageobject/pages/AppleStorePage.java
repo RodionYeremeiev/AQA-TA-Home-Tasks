@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.pages;
 
 import org.openqa.selenium.WebDriver;
 
@@ -12,11 +12,8 @@ public class AppleStorePage extends BasePage {
         super(driver);
     }
 
-
-    /**
-     * click on iphone button
-     */
-    public void clickOnIphoneButton(){
+    public void clickOnIphoneButton() {
         driver.findElement(xpath(IPHONE_BUTTON)).click();
     }
+
 }

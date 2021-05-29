@@ -5,14 +5,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
-import pageobject.*;
+import pageobject.pages.*;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 
 public class BaseTest {
 
-    private static final String AVIC_URL = "https://avic.ua";
     private WebDriver driver;
+    private static final String AVIC_URL = "https://avic.ua/";
+
 
     @BeforeTest
     public void profileSetUp() {
@@ -21,14 +22,14 @@ public class BaseTest {
 
     @BeforeMethod
     public void testsSetUp() {
-        driver = new ChromeDriver();//создаем экзаемпляр хром драйвера
-        driver.manage().window().maximize();//открыли браузер на весь экран
-        driver.get(AVIC_URL);//открыли сайт
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get(AVIC_URL);
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.close();//закрытие драйвера
+        driver.close();
     }
 
     public WebDriver getDriver() {
@@ -39,6 +40,10 @@ public class BaseTest {
         return new HomePage(getDriver());
     }
 
+    public SearchResultsPage getSearchResultsPage() {
+        return new SearchResultsPage(getDriver());
+    }
+
     public AppleStorePage getAppleStorePage() {
         return new AppleStorePage(getDriver());
     }
@@ -47,20 +52,13 @@ public class BaseTest {
         return new IphonePage(getDriver());
     }
 
-    public SearchResultPage getSearchResultPage() {
-        return new SearchResultPage(getDriver());
+    public AirConditionersPage getAirConditionersPage() {
+        return new AirConditionersPage(getDriver());
     }
 
     public ElectricalTransportPage getElectricalTransportPage() {
         return new ElectricalTransportPage(getDriver());
     }
 
-    public AirConditionersPage getAirConditionersPage() {
-        return new AirConditionersPage(getDriver());
-    }
-
-    public AllInOnePersonalComputersPage getAllInOnePersonalComputersPage() {
-        return new AllInOnePersonalComputersPage(getDriver());
-    }
 
 }
