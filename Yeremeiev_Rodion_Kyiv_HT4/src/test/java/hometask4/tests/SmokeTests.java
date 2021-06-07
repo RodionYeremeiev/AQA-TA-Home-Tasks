@@ -6,11 +6,8 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
 public class SmokeTests extends BaseTest {
-    // TODO: implement test methods watch for correct class and package names
-    private static final long TIME_OUT_30 = 30;
     private static final long TIME_OUT_60 = 60;
     private static final long TIME_OUT_90 = 90;
-    private static final long TIME_OUT_120 = 120;
 
     private static final String EXPECTED_AMOUNT_IN_BASKET = "1";
     private static final String EXPECTED_ADD_TO_BASKET_HEADER_TEXT = "1 item added to basket";
