@@ -10,10 +10,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.HomePage;
-import pages.ProductPage;
-import pages.SavedItemsPage;
-import pages.SearchResultPage;
+import pages.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +24,8 @@ public class DefinitionSteps {
     ProductPage productPage;
     SavedItemsPage savedItemsPage;
     SearchResultPage searchResultPage;
+    RegistrationPage registrationPage;
+    LogInPage logInPage;
     PageFactoryManager pageFactoryManager;
 
     @Before
@@ -107,7 +106,7 @@ public class DefinitionSteps {
     @And("User checks my account popup visibility")
     public void userChecksMyAccountPopupVisibility() {
         homePage.moveToElement(homePage.getMyAccountButton());
-        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getMyAcoountPopUp());
+        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getMyAccountPopUp());
         homePage.isMyAccountPopUpVisible();
     }
 
@@ -252,4 +251,162 @@ public class DefinitionSteps {
         Assert.assertTrue((searchResultPage.getSearchResultAmount() - expectedAmount) <= 10
                 || (searchResultPage.getSearchResultAmount() - expectedAmount) >= -10);
     }
+
+    @And("User moves cursor to My Account button")
+    public void userMovesCursorToMyAccountButton() {
+        homePage.moveToElement(homePage.getMyAccountButton());
+        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getMyAccountPopUp());
+    }
+
+    @And("User clicks Join Button at popup menu")
+    public void userClicksJoinButtonAtPopupMenu() {
+        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getMyAccountPopUp());
+        homePage.clickJoinButton();
+        registrationPage = pageFactoryManager.getRegistrationPage();
+        registrationPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+    }
+
+    @And("User enters valid Email into registration form")
+    public void userEntersValidEmailIntoRegistrationForm() {
+        registrationPage.inputGeneratedEmail();
+    }
+
+    @And("User enters valid First Name registration form")
+    public void userEntersValidFirstNameRegistrationForm() {
+        registrationPage.inputGeneratedString(registrationPage.getFirstNameField());
+    }
+
+    @And("User enters valid Last Name registration form")
+    public void userEntersValidLastNameRegistrationForm() {
+        registrationPage.inputGeneratedString(registrationPage.getLastNameField());
+    }
+
+    @And("User enters valid Password registration form")
+    public void userEntersValidPasswordRegistrationForm() {
+        registrationPage.inputGeneratedString(registrationPage.getPasswordNameField());
+    }
+
+    @And("User selects date of birth")
+    public void userSelectsDateOfBirth() {
+        registrationPage.clickDaySelector();
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getDayFifteen());
+        registrationPage.getDayFifteen().click();
+        registrationPage.waitForAjaxToCompletePdp(DEFAULT_TIMEOUT);
+        registrationPage.clickMonthSelector();
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getJanuary());
+        registrationPage.getJanuary().click();
+        registrationPage.waitForAjaxToCompletePdp(DEFAULT_TIMEOUT);
+        registrationPage.clickYearSelector();
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getYear2005());
+        registrationPage.getYear2005().click();
+        registrationPage.waitForAjaxToCompletePdp(DEFAULT_TIMEOUT);
+        registrationPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+    }
+
+    @And("User clicks on Select All button for Contact Preferences")
+    public void userClicksOnSelectAllButtonForContactPreferences() {
+        registrationPage.clickOnSelectAllButton();
+    }
+
+    @Then("User checks that all input fields are valid")
+    public void userChecksThatAllInputFieldsAreValid() {
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getSubmitButton());
+        Assert.assertTrue(registrationPage.submitButtonIsVisible());
+    }
+
+    @And("User clicks on Join Asos button")
+    public void userClicksOnJoinAsosButton() {
+        registrationPage.clickOnSubmitButton();
+    }
+
+    @Then("User opens {string} again to check if registration were successful")
+    public void checkIfRegistrationIsSuccessful(final String url) {
+        homePage = pageFactoryManager.getHomePage();
+        homePage.openHomePage(url);
+        Assert.assertFalse(registrationPage.signInButtonIsVisible());
+    }
+
+    @And("User clicks Sign In button")
+    public void userClicksSignInButton() {
+        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getMyAccountPopUp());
+        homePage.clickSignInButton();
+        logInPage = pageFactoryManager.getLogInPage();
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+    }
+
+
+    @When("User input valid {string} in email form and click Enter")
+    public void userInputValidEmail(final String email) {
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        logInPage.inputInValidEmail(email);
+    }
+
+    @And("User input valid {string} in password form")
+    public void userInputValidPassword(final String password) {
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        logInPage.inputInValidPassword(password);
+    }
+
+    @And("User clicks Submit Button")
+    public void userClicksSubmitButton() {
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        logInPage.clickOnSignInButton();
+    }
+
+    @And("User input Invalid {string} in email form and click Enter")
+    public void InvalidEmailInput(final String email) {
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        logInPage.inputInValidEmail(email);
+    }
+
+    @And("User input Invalid {string} in password form and click Enter")
+    public void InvalidPasswordInput(final String password) {
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        logInPage.inputInValidPassword(password);
+    }
+
+    @Then("User checks are Warning displayed")
+    public void userChecksAreWarningDisplayed() {
+        logInPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        logInPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, logInPage.getEmailError());
+        Assert.assertTrue(logInPage.isEmailErrorVisible());
+        logInPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, logInPage.getPasswordError());
+        Assert.assertTrue(logInPage.isPasswordErrorVisible());
+        Assert.assertFalse(logInPage.isSignInButtonClickable());
+    }
+
+    @Then("User checks that all input fields are displaying error warnings")
+    public void userChecksThatAllInputFieldsAreDisplayingErrorWarnings() {
+        registrationPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getEmailErrorMessage());
+        Assert.assertTrue(registrationPage.visibilityOfEmailError());
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getFirstNameError());
+        Assert.assertTrue(registrationPage.visibilityOfFirstNameError());
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getLastNameError());
+        Assert.assertTrue(registrationPage.visibilityOfLastNameError());
+        registrationPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, registrationPage.getPasswordError());
+        Assert.assertTrue(registrationPage.visibilityOfPasswordError());
+    }
+
+    @And("User enters Invalid {string} into Email field of registration form and Press Enter")
+    public void invalidEmailRegistration(final String email) {
+        registrationPage.inputInvalidEmail(email);
+    }
+
+    @And("User enters Invalid {string} into First name field of registration form and Press Enter")
+    public void invalidFirstNameRegistration(final String firstName) {
+        registrationPage.inputInvalidFirstName(firstName);
+    }
+
+    @And("User enters Invalid {string} into Last name field of registration form and Press Enter")
+    public void invalidLastNameRegistration(final String lastName) {
+        registrationPage.inputInvalidLastName(lastName);
+    }
+
+
+    @When("User enters Invalid {string} into Password field of registration form and Press Enter")
+    public void invalidPasswordRegistration(final String password) {
+        registrationPage.inputInvalidPassword(password);
+    }
+
 }

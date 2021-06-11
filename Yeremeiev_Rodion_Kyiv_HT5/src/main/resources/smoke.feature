@@ -17,8 +17,8 @@ Feature: Smoke
     And User checks that Topman popup is visible and contains <topMan> in Shop by product section
 
     Examples:
-      | homePage                  | saleElements | newIn | topMan | clothing | shoes | accesories | trendingNow | sportsWear | faceAndBody | brands | outlet | marketPlace |
-      | https://www.asos.com/men/ | 24           | 9     | 12     | 21       | 10    | 13         | 6           | 7          | 10          | 21     | 24     | 4           |
+      | homePage                  | saleElements | newIn | topMan |
+      | https://www.asos.com/men/ | 24           | 9     | 12     |
 
 
   Scenario Outline: Check save item
@@ -71,8 +71,46 @@ Feature: Smoke
 
   Scenario Outline: Check registration with valid parameters
     Given User opens '<homePage>' page
+    And User moves cursor to My Account button
+    And User clicks Join Button at popup menu
+    And User enters valid Email into registration form
+    And User enters valid First Name registration form
+    And User enters valid Last Name registration form
+    And User enters valid Password registration form
+    And User selects date of birth
+    When User clicks on Select All button for Contact Preferences
+    And User checks that all input fields are valid
+#    And User clicks on Join Asos button
+    Then User opens '<homePage>' again to check if registration were successful
 
     Examples:
-      | homePage                  | keyword  | amount |
-      | https://www.asos.com/men/ | converse | 136    |
+      | homePage                  |
+      | https://www.asos.com/men/ |
 
+  Scenario Outline: Check log-in with Invalid parameters
+    Given User opens '<homePage>' page
+    And User moves cursor to My Account button
+    And User clicks Sign In button
+    And User input Invalid '<email>' in email form and click Enter
+    And User input Invalid '<password>' in password form and click Enter
+    When User clicks Submit Button
+    Then User checks are Warning displayed
+
+    Examples:
+      | homePage                  | email | password |
+      | https://www.asos.com/men/ | >.<   |          |
+
+
+  Scenario Outline: Check registration with Invalid parameters
+    Given User opens '<homePage>' page
+    And User moves cursor to My Account button
+    And User clicks Join Button at popup menu
+    And User enters Invalid '<email>' into Email field of registration form and Press Enter
+    And User enters Invalid '<firstName>' into First name field of registration form and Press Enter
+    And User enters Invalid '<lastName>' into Last name field of registration form and Press Enter
+    When User enters Invalid '<password>' into Password field of registration form and Press Enter
+    Then User checks that all input fields are displaying error warnings
+
+    Examples:
+      | homePage                  | email      | firstName | lastName | password |
+      | https://www.asos.com/men/ | sdfsfsfsdf | <.>       | >.<      | ~        |

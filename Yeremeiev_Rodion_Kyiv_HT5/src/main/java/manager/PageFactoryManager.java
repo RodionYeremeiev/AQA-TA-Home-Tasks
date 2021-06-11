@@ -1,10 +1,7 @@
 package manager;
 
 import org.openqa.selenium.WebDriver;
-import pages.HomePage;
-import pages.ProductPage;
-import pages.SavedItemsPage;
-import pages.SearchResultPage;
+import pages.*;
 
 public class PageFactoryManager {
     WebDriver driver;
@@ -27,5 +24,13 @@ public class PageFactoryManager {
 
     public SearchResultPage getSearchResultPage() {
         return new SearchResultPage(driver);
+    }
+
+    public RegistrationPage getRegistrationPage() {
+        return new RegistrationPage(driver);
+    }
+
+    public LogInPage getLogInPage(){
+        return new LogInPage(driver);
     }
 }

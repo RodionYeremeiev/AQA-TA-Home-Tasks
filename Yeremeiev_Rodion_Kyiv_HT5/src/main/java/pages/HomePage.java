@@ -9,7 +9,7 @@ import java.util.List;
 public class HomePage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='myAccountIcon']")
-    public WebElement myAccountButton;
+    private WebElement myAccountButton;
     @FindBy(xpath = "//button[@data-testid='search-button-inline']")
     private WebElement searchButton;
     @FindBy(xpath = "//header")
@@ -20,8 +20,6 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//input[@type='search']")
     private WebElement searchField;
-
-    // *********************************************************
 
     @FindBy(xpath = "//span[text()='VIEW ALL']")
     private WebElement viewAllButton;
@@ -88,6 +86,15 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//button[@aria-label='previous']")
     private WebElement scrollBackwardButton;
 
+    @FindBy(xpath = "//a[@data-testid='signup-link']")
+    private WebElement joinButton;
+
+    @FindBy(xpath = "//a[@data-testid='signin-link']")
+    private WebElement signInButton;
+
+    @FindBy(xpath = "//span[text()='Hi homer']")
+    private WebElement hiHomer;
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -128,12 +135,12 @@ public class HomePage extends BasePage {
         rayBanGlassesButton.click();
     }
 
-    public WebElement getMyAcoountPopUp() {
+    public WebElement getMyAccountPopUp() {
         return myAccountPopUp;
     }
 
     public boolean isMyAccountPopUpVisible() {
-        return getMyAcoountPopUp().isDisplayed();
+        return getMyAccountPopUp().isDisplayed();
     }
 
     public boolean isSavedItemsButtonVisible() {
@@ -231,5 +238,17 @@ public class HomePage extends BasePage {
 
     public void clickSearchButton() {
         searchButton.click();
+    }
+
+    public void clickJoinButton() {
+        joinButton.click();
+    }
+
+    public void clickSignInButton() {
+        signInButton.click();
+    }
+
+    public boolean hiHomerIsVisible() {
+        return hiHomer.isDisplayed();
     }
 }
