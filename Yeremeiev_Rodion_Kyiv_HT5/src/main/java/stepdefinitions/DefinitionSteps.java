@@ -26,6 +26,8 @@ public class DefinitionSteps {
     SearchResultPage searchResultPage;
     RegistrationPage registrationPage;
     LogInPage logInPage;
+    MyBagPage myBagPage;
+    MarketPlacePage marketPlacePage;
     PageFactoryManager pageFactoryManager;
 
     @Before
@@ -409,4 +411,133 @@ public class DefinitionSteps {
         registrationPage.inputInvalidPassword(password);
     }
 
+    @And("User clicks on Mango Umbrella item")
+    public void userClicksOnMangoUmbrellaItem() {
+        searchResultPage = pageFactoryManager.getSearchResultPage();
+        searchResultPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        searchResultPage.clickOnMangoUmbrella();
+        searchResultPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        productPage = pageFactoryManager.getProductPage();
+    }
+
+    @And("User clicks on add to Bag Button")
+    public void userClicksOnAddToBagButton() {
+        productPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        productPage.clickOnAddToBagButton();
+    }
+
+    @And("User clicks on close popup button")
+    public void userClicksOnClosePopupButton() {
+        productPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, productPage.getBagPopUp());
+        productPage.getBagPopUp().click();
+        productPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+    }
+
+    @When("bag icon shows {string} elements")
+    public void bagIconShowsAmountElements(final String counter) {
+        productPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, productPage.getBagCounter());
+        Assert.assertEquals(productPage.getBagCounter().getText(), counter);
+    }
+
+    @And("User clicks on Bag Button")
+    public void userClicksOnBagButton() {
+        productPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        productPage.clickOnBagButton();
+    }
+
+    @And("User clicks on view bag button")
+    public void userClicksOnViewBagPopUpButton() {
+        productPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        productPage.clickOnPopupViewBagButton();
+        myBagPage = pageFactoryManager.getMyBagPage();
+    }
+
+
+    @And("User checks items {string}")
+    public void userChecksItemsPrice(final String priceExpected) {
+        myBagPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        Assert.assertEquals(myBagPage.getItemsSubTotalPrice().getText(), priceExpected);
+    }
+
+
+    @And("User clicks on Marketplace button")
+    public void userClicksOnMarketplaceButton() {
+        homePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        homePage.clickOnMarketPlaceButton();
+        marketPlacePage = pageFactoryManager.getMarketPlacePage();
+    }
+
+    @And("User check that {string} matches expected")
+    public void userCheckThatUrlMatchesExpected(final String url) {
+        marketPlacePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        Assert.assertTrue(driver.getCurrentUrl().equalsIgnoreCase(url));
+    }
+
+    @And("User clicks on Sell Here button")
+    public void userClicksOnSellHereButton() {
+        marketPlacePage.waitForAjaxToCompletePdp(DEFAULT_TIMEOUT);
+        marketPlacePage.clickOnSellHereButton();
+    }
+
+    @And("User checks that Info-page header contains {string}")
+    public void userChecksThatInfoPageHeaderContainsKeyword(final String keyword) {
+        marketPlacePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        Assert.assertTrue(marketPlacePage.getInfoPageHeader().getText().contains(keyword));
+    }
+
+    @When("User clicks on Apply for boutique button")
+    public void userClicksOnApplyForBoutiqueButton() {
+        marketPlacePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        marketPlacePage.clickOnApplyForBoutiqueButton();
+    }
+
+    @Then("User checks that social button Sign In with Facebook leads to correct Url")
+    public void userChecksThatSocialButtonSignInWithFacebookLeadsToCorrectUrl() {
+        marketPlacePage.getSignInFacebookButton().click();
+        Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("facebook"));
+    }
+
+
+    @Then("User checks that footters external link leads back to Asos.com Url")
+    public void userChecksThatFoottersExternalLinkLeadsBackToAsosComUrl() {
+        marketPlacePage.clickOnExternalLink();
+        Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("asos.com"));
+    }
+
+    @And("User clicks country button")
+    public void userClicksCountryButton() {
+        homePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getCountryButton());
+        homePage.clickOnCountryButton();
+    }
+
+    @And("User checks that country is {string}")
+    public void userChecksThatCountryIsCountry(final String country) {
+        Assert.assertEquals(homePage.getCountryButton().getText(), country);
+    }
+
+    @And("User changes currency to USD")
+    public void userChangesCurrencyToUSD() {
+        homePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        homePage.clickOnUsdButton();
+    }
+
+    @And("User click on Update button")
+    public void userClickOnUpdateButton() {
+        homePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        homePage.clickOnUpdateButton();
+    }
+
+    @And("User clicks on Currency button")
+    public void userClicksOnCurrencyButton() {
+        homePage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getUsdButon());
+        homePage.clickOnCurrencyButton();
+    }
+
+    @Then("User checks that item price is now {string}")
+    public void userChecksThatItemPriceIsNowUsd(final String priceExpected) {
+        productPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        Assert.assertEquals(productPage.getItemPrice().getText(), priceExpected);
+    }
 }

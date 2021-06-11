@@ -30,7 +30,15 @@ public class PageFactoryManager {
         return new RegistrationPage(driver);
     }
 
-    public LogInPage getLogInPage(){
+    public LogInPage getLogInPage() {
         return new LogInPage(driver);
+    }
+
+    public MyBagPage getMyBagPage() {
+        return new MyBagPage(driver);
+    }
+
+    public MarketPlacePage getMarketPlacePage(){
+        return new MarketPlacePage(driver);
     }
 }

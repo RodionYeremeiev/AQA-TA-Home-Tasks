@@ -10,8 +10,10 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//button[@data-testid='myAccountIcon']")
     private WebElement myAccountButton;
+
     @FindBy(xpath = "//button[@data-testid='search-button-inline']")
     private WebElement searchButton;
+
     @FindBy(xpath = "//header")
     private WebElement header;
 
@@ -42,7 +44,6 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[@type='bagUnfilled']")
     private WebElement bagButton;
 
-    //    @FindBy(xpath = "//button[@data-id='c223e1a9-dc0f-42f5-afca-5cf5988c716b']//span[text()='Sale']")
     @FindBy(xpath = "//button[contains(@data-id,'c223e1a9')]//span[text()='Sale']")
     private WebElement salePopUpButton;
 
@@ -92,8 +93,20 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='signin-link']")
     private WebElement signInButton;
 
-    @FindBy(xpath = "//span[text()='Hi homer']")
-    private WebElement hiHomer;
+    @FindBy(xpath = "//a[@data-testid='marketplace']")
+    private WebElement marketPlaceButton;
+
+    @FindBy(xpath = "//div[@data-testid='topbar']//button[contains(@aria-label,'Ukraine')]")
+    private WebElement countryButton;
+
+    @FindBy(xpath = "//select[@id='currency']")
+    private WebElement currencyButton;
+
+    @FindBy(xpath = "//option[text()='$ USD']")
+    private WebElement usdButton;
+
+    @FindBy(xpath = "//button[text()='Update Preferences']")
+    private WebElement updateButton;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -248,7 +261,31 @@ public class HomePage extends BasePage {
         signInButton.click();
     }
 
-    public boolean hiHomerIsVisible() {
-        return hiHomer.isDisplayed();
+    public void clickOnMarketPlaceButton() {
+        marketPlaceButton.click();
+    }
+
+    public void clickOnCountryButton() {
+        countryButton.click();
+    }
+
+    public WebElement getCountryButton() {
+        return countryButton;
+    }
+
+    public void clickOnCurrencyButton() {
+        currencyButton.click();
+    }
+
+    public void clickOnUsdButton() {
+        usdButton.click();
+    }
+
+    public void clickOnUpdateButton() {
+        updateButton.click();
+    }
+
+    public WebElement getUsdButon() {
+        return usdButton;
     }
 }

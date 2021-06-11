@@ -17,6 +17,11 @@ public class SearchResultPage extends BasePage {
     @FindBy(xpath = "//p[@data-auto-id='styleCount']")
     private WebElement searchResultAmount;
 
+//    @FindBy(xpath = "//span[@class='_3VjzNxC']")
+    @FindBy(xpath = "//img[contains(@src,'/mango-umbrella-in-wine')]")
+
+    private WebElement mangoUmbrella;
+
     public SearchResultPage(WebDriver driver) {
         super(driver);
     }
@@ -35,5 +40,9 @@ public class SearchResultPage extends BasePage {
 
     public int getSearchResultAmount() {
         return Integer.valueOf(searchResultAmount.getText().replaceAll("[^\\d.]", ""));
+    }
+
+    public void clickOnMangoUmbrella() {
+        mangoUmbrella.click();
     }
 }

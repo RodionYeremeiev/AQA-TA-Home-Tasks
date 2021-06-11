@@ -114,3 +114,50 @@ Feature: Smoke
     Examples:
       | homePage                  | email      | firstName | lastName | password |
       | https://www.asos.com/men/ | sdfsfsfsdf | <.>       | >.<      | ~        |
+
+
+  Scenario Outline: Check my Bag functionality
+    Given User opens '<homePage>' page
+    And User enters search '<keyword>' to search field
+    And User clicks on Mango Umbrella item
+    And User clicks on add to Bag Button
+    And User clicks on close popup button
+    When bag icon shows '<amount>' elements
+    And User clicks on Bag Button
+    And User clicks on view bag button
+    Then User checks items '<price>'
+
+
+    Examples:
+      | homePage                  | keyword  | amount | price  |
+      | https://www.asos.com/men/ | umbrella | 1      | £11.00 |
+
+
+  Scenario Outline: Check Marketplace
+    Given User opens '<homePage>' page
+    And User clicks on Marketplace button
+    And User check that '<url>' matches expected
+    And User clicks on Sell Here button
+    When User checks that Info-page header contains '<keyword>'
+    Then User checks that footters external link leads back to Asos.com Url
+
+
+    Examples:
+      | homePage                  | url                                               | keyword      |
+      | https://www.asos.com/men/ | https://marketplace.asos.com/?ctaref=Global%20nav | SELL ON ASOS |
+
+
+  Scenario Outline: Check Country
+    Given User opens '<homePage>' page
+    And User clicks country button
+    And User clicks on Currency button
+    And User changes currency to USD
+    And User click on Update button
+    And User enters search '<keyword>' to search field
+    And User clicks on Mango Umbrella item
+    Then User checks that item price is now '<usd>'
+
+    Examples:
+      | homePage                  | keyword  | usd    |
+      | https://www.asos.com/men/ | umbrella | $17.50 |
+
