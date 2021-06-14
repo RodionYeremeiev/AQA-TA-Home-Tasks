@@ -411,11 +411,11 @@ public class DefinitionSteps {
         registrationPage.inputInvalidPassword(password);
     }
 
-    @And("User clicks on Mango Umbrella item")
-    public void userClicksOnMangoUmbrellaItem() {
+    @And("User clicks on Umbrella item")
+    public void userClicksOnUmbrellaItem() {
         searchResultPage = pageFactoryManager.getSearchResultPage();
         searchResultPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
-        searchResultPage.clickOnMangoUmbrella();
+        searchResultPage.clickOnUmbrella();
         searchResultPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
         productPage = pageFactoryManager.getProductPage();
     }
@@ -448,6 +448,7 @@ public class DefinitionSteps {
     @And("User clicks on view bag button")
     public void userClicksOnViewBagPopUpButton() {
         productPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        productPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, productPage.getBagPopUp());
         productPage.clickOnPopupViewBagButton();
         myBagPage = pageFactoryManager.getMyBagPage();
     }
@@ -456,6 +457,7 @@ public class DefinitionSteps {
     @And("User checks items {string}")
     public void userChecksItemsPrice(final String priceExpected) {
         myBagPage.waitForPageLoadingComplete(DEFAULT_TIMEOUT);
+        myBagPage.waitVisibilityOfElement(DEFAULT_TIMEOUT, myBagPage.getItemsSubTotalPrice());
         Assert.assertEquals(myBagPage.getItemsSubTotalPrice().getText(), priceExpected);
     }
 

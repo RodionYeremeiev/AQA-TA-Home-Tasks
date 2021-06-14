@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 public class ProductPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='save-button-wrapper']//button[@class='save-button']")
-    private WebElement saveUnrvlldForLater;
+    private WebElement saveForLater;
 
     @FindBy(xpath = "//span[contains(text(),'Add to bag')]")
     private WebElement addToBagButton;
@@ -33,7 +33,7 @@ public class ProductPage extends BasePage {
     }
 
     public void clickOnSaveProductForLaterButton() {
-        saveUnrvlldForLater.click();
+        saveForLater.click();
     }
 
     public void clickOnAddToBagButton() {

@@ -80,7 +80,7 @@ Feature: Smoke
     And User selects date of birth
     When User clicks on Select All button for Contact Preferences
     And User checks that all input fields are valid
-#    And User clicks on Join Asos button
+    And User clicks on Join Asos button
     Then User opens '<homePage>' again to check if registration were successful
 
     Examples:
@@ -119,7 +119,7 @@ Feature: Smoke
   Scenario Outline: Check my Bag functionality
     Given User opens '<homePage>' page
     And User enters search '<keyword>' to search field
-    And User clicks on Mango Umbrella item
+    And User clicks on Umbrella item
     And User clicks on add to Bag Button
     And User clicks on close popup button
     When bag icon shows '<amount>' elements
@@ -130,7 +130,7 @@ Feature: Smoke
 
     Examples:
       | homePage                  | keyword  | amount | price  |
-      | https://www.asos.com/men/ | umbrella | 1      | £11.00 |
+      | https://www.asos.com/men/ | umbrella | 1      | £16.80 |
 
 
   Scenario Outline: Check Marketplace
@@ -154,10 +154,10 @@ Feature: Smoke
     And User changes currency to USD
     And User click on Update button
     And User enters search '<keyword>' to search field
-    And User clicks on Mango Umbrella item
+    And User clicks on Umbrella item
     Then User checks that item price is now '<usd>'
 
     Examples:
       | homePage                  | keyword  | usd    |
-      | https://www.asos.com/men/ | umbrella | $17.50 |
+      | https://www.asos.com/men/ | umbrella | $27.00 |
 

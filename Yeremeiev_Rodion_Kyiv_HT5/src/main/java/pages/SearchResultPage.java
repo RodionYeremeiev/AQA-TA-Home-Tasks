@@ -17,10 +17,8 @@ public class SearchResultPage extends BasePage {
     @FindBy(xpath = "//p[@data-auto-id='styleCount']")
     private WebElement searchResultAmount;
 
-//    @FindBy(xpath = "//span[@class='_3VjzNxC']")
-    @FindBy(xpath = "//img[contains(@src,'/mango-umbrella-in-wine')]")
-
-    private WebElement mangoUmbrella;
+    @FindBy(xpath = "//img[contains(@src,'floral-print-umbrella')]")
+    private WebElement fulltonUmbrella;
 
     public SearchResultPage(WebDriver driver) {
         super(driver);
@@ -42,7 +40,7 @@ public class SearchResultPage extends BasePage {
         return Integer.valueOf(searchResultAmount.getText().replaceAll("[^\\d.]", ""));
     }
 
-    public void clickOnMangoUmbrella() {
-        mangoUmbrella.click();
+    public void clickOnUmbrella() {
+        fulltonUmbrella.click();
     }
 }
